@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+</head>
+
+<body>
+    <%- include('../../partials/_navbar.ejs')  %>
+    <a href="/admin/users/new">
+        <main>
+        Add new User
+      </a>
+
+    <table>
+        <th>Usernames</th>
+        <th>Role</th>
+        <th> Admin</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <% users.forEach((usr)=> { %>
+            <tr>
+                <td>
+                    <%= usr.username %>
+                </td>
+                <td>
+                    <%= usr.role %>
+                </td>
+                <td>
+                    <% if(usr.role=== 'Admin') {%> <p>Admin</p> <% } %>
+                    
+                </td>
+                <td>
+                    <a href="/admin/users/<%= usr._id %>/edit">
+                        Edit
+                      </a>
+                </td>
+                <td>
+                    <form action="/admin/users/<%= usr._id %>/?_method=DELETE"
+                        method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+
+            <% }); %>
+    </table>
+</main>
+</body>
+
+</html>

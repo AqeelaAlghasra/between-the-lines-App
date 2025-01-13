@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> All Authors </title>
+
+</head>
+<body>
+    <%- include('../partials/_navbar.ejs')  %>
+    <a href="/admin/users/new">
+        <main>
+        Add new Author
+      </a>
+
+    <table>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th></th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <% authors.forEach((auth)=> { %>
+            <tr>
+                <td>
+                    <%= auth.username %>
+                </td>
+                <td>
+                    <%= auth.username %>
+                </td>
+                <td>
+                    <%= auth.role %>
+                </td>
+                <td>
+                    
+                    
+                </td>
+                <td>
+                    <a href="/authors/<%= auth._id %>/edit">
+                        Edit
+                      </a>
+                </td>
+                <td>
+                    <form action="/authors/<%= auth._id %>/?_method=DELETE"
+                        method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+
+            <% }); %>
+    </table>
+</main>
+</body>
+
+</html>

@@ -17,7 +17,7 @@ router.post('/sign-up', async (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
   const role = req.body.submit;
-  console.log('role',role)
+  
   const confirmPassword = req.body.confirmPassword;
   // Check if the user already exists
   const existingUser = await User.findOne({ username });
@@ -34,10 +34,9 @@ router.post('/sign-up', async (req, res) => {
   // create the user in the database
   // -b make the password secure
   const hashPassword = auth.encryptPassword(password);
-  const payload = { username, password: hashPassword,role: role};
+  const payload = { username, password: hashPassword,role };
 
   const newUser = await User.create(payload);
-  console.log(newUser);
   // sign person in and redirect to home page
   req.session.user = {
     username: newUser.username,
@@ -47,9 +46,9 @@ router.post('/sign-up', async (req, res) => {
 
   req.session.save(() => {
     if(role==='Author')
-      res.redirect('/authors/new', {user: req.session.user});
+      res.render('/authors/new.ejs', {user: req.session.user});
     if(role==='Customer')
-      res.redirect('/customers/new', {user: req.session.user});
+      res.render('/customers/new.ejs', {user: req.session.user});
   });
 });
 
@@ -64,8 +63,6 @@ router.post('/sign-in', async (req, res) => {
   const role = req.body.role;
   // find a user from the username they filled out
   const user = await User.findOne({ username });
-
-
   // if the user doesnt exist, send an error msg
   if (!user) {
     return res.send('Login failed, please try again');
@@ -86,10 +83,10 @@ router.post('/sign-in', async (req, res) => {
   };
 
   req.session.save(() => {
-    if(req.session.role==='Author')
+    if(role==='Author')
       res.redirect('/authors/new');
-    if(req.session.role==='Customer')
-      res.redirect('/customers/new');
+    if(role==='Customer')
+      res.redirect('/authors/new');
   });
 });
 

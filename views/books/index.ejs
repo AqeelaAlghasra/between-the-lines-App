@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Users</title>
+</head>
+
+<body>
+    <%- include('../../partials/_navbar.ejs')  %>
+    <a href="/admin/authors/<%=author._id%>/book/new">
+        <main>
+        Add new Book
+      </a>
+
+    <table>
+        <th>title</th>
+        <th>Role</th>
+        <th> Admin</th>
+        <th>Edit</th>
+        <th>Delete</th>
+        <% books.forEach((bk)=> { %>
+            <tr>
+                <td>
+                    <%= bk.title %>
+                </td>
+                <td>
+                    
+                </td>
+                <td>
+                    
+                    
+                </td>
+                <td>
+                    <a href="/admin/books/<%= usr._id %>/edit">
+                        Edit
+                      </a>
+                </td>
+                <td>
+                    <form action="/admin/users/<%= usr._id %>/?_method=DELETE"
+                        method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+
+
+            <% }); %>
+    </table>
+</main>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+</head>
+
+<body>
+    <%- include('../../partials/_navbar.ejs')  %>
+    <h1>Add a new User</h1>
+    <div>
+        <form action="/admin/users" method="POST" >
+            <div>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" />
+                <div>
+                    <label for="password">password:</label>
+                    <input type="text" name="password" id="password" />
+                </div>
+                <label for="role">Role:</label>
+                <select id="role" name="role">
+                    <option value="Admin">Admin</option>
+                    <option value="Customer">Customer</option>
+                    <option value="Author">Author</option>
+                </select>
+                
+                <button type="submit">Add User</button>
+        </form>
+</body>
+
+</html>
