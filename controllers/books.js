@@ -1,104 +1,124 @@
+const { request } = require('express');
 const express = require('express');
 const router = express.Router();
-
 const Book = require('../models/book.js');
+const Author = require('../models/author.js');
+const User = require('../models/user.js');
 
+
+exports.getAuthors = async (req,res) => {
+  try{
+    const authors = await Author.find().populate('authors');
+    res.render('authors',{authors})
+
+  }catch(err){
+    res.status(500).send(error)
+  }
+};
 
 
 router.get('/', async(req,res)=>{
-    
-    const admin = await User.findById(req.session.user._id)
-    
-    res.render('admin/dashboard.ejs', { user: admin
+    const books = await Book.find({});
+    res.render('books/index.ejs', { books: books
         
     })
 })
 
 
-router.get('/:userId/dashboard', async(req,res)=>{ 
-    const admin = await User.findById(req.params.userId)
-    res.render('admin/dashboard.ejs', { user: admin
-        
+router.get('/books/', async(req,res)=>{
+    const allBooks = await Book.find({})
+    res.render('books/index.ejs', {
+        books: allBooks
     })
 })
 
-router.get('/users', async(req,res)=>{
-    const allUsers = await User.find({})
-    res.render('admin/users/index.ejs', {
-        users: allUsers
-    })
-})
-
-router.get('/users/new', async(req,res)=>{
-    res.render('admin/users/new.ejs')
+router.get('/new', async(req,res)=>{
+    res.render('./books/new.ejs');
 })
 
 
-router.post('/users/',async( req, res)=>{
+router.post('/',async( req, res)=>{
+  const {authorId,title, description,price,stockQuantity,thumbnail,publishedDate,pages,category} = req.body;
     try {
-      const newUser = await User.create(req.body);
-      
-      res.redirect(`/admin/users/`);
+      const newBook = new Book({
+        authorId,title, description,price,stockQuantity,thumbnail,publishedDate,pages,category
+      }) 
+      await newBook.save();     
+      console.log(newBook)
+      res.redirect(`/books/`);
       
     } catch (error) {
       console.log(error);
-      res.redirect('/admin/users/');
+      res.redirect('/books/');
     }
   });
 
 
-  router.put('/users/:userId', async (req, res) => {
+  router.put('/books/:bookId', async (req, res) => {
     try {
       console.log(req.body)
-      const updateUser = await User.findByIdAndUpdate(req.params.userId,req.body);
-      console.log(updateUser)
+      const updateBook = await Book.findByIdAndUpdate(req.params.bookId,req.body);
+      console.log(updateBook)
       res.redirect(
-        `/admin/users/${updateUser._id}`
+        `/books/${updateBook._id}`
       );
     } catch (error) {
       console.log(error);
-      res.redirect('/admin/users');
+      res.redirect('/books/');
     }
   });
 
-  router.get('/users/:userId', async (req, res) => {
+  router.get('/books/:bookId', async (req, res) => {
     try {
-      
-      const currentUser = await User.findById(req.params.userId);
+      const currentBook = await Book.findById(req.params.bookId);
+
       res.render(
-        `admin/users/show.ejs`,{user: currentUser}
+        `/books/show.ejs`,{book: currentBook}
       );
     } catch (error) {
       console.log(error);
-      res.redirect('/admin/users');
+      res.redirect('/books/');
     }
   });
 
-  router.get('/users/:userId/edit', async (req, res) => {
+  router.get('/:bookId/edit', async (req, res) => {
     try {
-      
-      const currentUser = await User.findById(req.params.userId);
-      res.render(
-        "admin/users/edit.ejs",{user: currentUser}
-      );
+      const currentBook = await Book.findById(req.params.bookId).populate('author');
+      console.log(currentBook);
+      // res.render(
+      //   'books/edit.ejs'
+      // );
     } catch (error) {
       console.log(error);
-      res.redirect('/admin/users');
+      res.redirect('/books/');
     }
   });
+
+  // router.get('/users/:userId/edit', async (req, res) => {
+  //   try {
+      
+  //     const currentUser = await User.findById(req.params.userId);
+  //     res.render(
+  //       "admin/users/edit.ejs",{user: currentUser}
+  //     );
+  //   } catch (error) {
+  //     console.log(error);
+  //     res.redirect('/admin/users');
+  //   }
+  // });
   
 
 
-  router.delete('/users/:userId', async (req, res) => {
+  router.delete('/books/:bookId', async (req, res) => {
     try {
       
-      const currentUser = await User.findByIdAndDelete(req.params.userId);
+      const currentBook = await Book.findByIdAndDelete(req.params.bookId);
       
-      res.redirect(`/admin/users`);
+      res.redirect(`/books/`);
     } catch (error) {
       // If any errors, log them and redirect back home
       console.log(error);
-      res.redirect('/admin/users');
+      res.redirect('/books/');
     }
   });
 

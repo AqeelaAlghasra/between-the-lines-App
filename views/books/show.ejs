@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard </title>
-  </head>
-  <body>
+    <title> book</title>
+
+</head>
+<body>
     <%- include('../partials/_navbar.ejs')  %>
-      <h1><%= user.role %> Dashboard</h1>
-      <a href="/auth/sign-out">Sign out</a>
-      
-  </body>
-</html>
+<main>
+  <h1><%= book._id %></h1>
+  <h1><%= book.title %></h1>
+  
+</main>
+</body>

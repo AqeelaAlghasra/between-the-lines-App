@@ -14,7 +14,13 @@
       <input type="password" name="password" id="password" />
       <label for="confirmPassword">Confirm Password:</label>
       <input type="password" name="confirmPassword" id="confirmPassword" />
-      <button type="submit" value="Customer" name="submit" >Sign up Customer </button> <button type="submit" value="Author" name="submit" >Sign up as Author</button>
+      <form action="/customer" method="GET">
+        <button type="submit" value="Customer" name="submit" >Sign up Customer </button>
+      </form>
+      <form action="/customer" method="GET">
+        <button type="submit" value="Author" name="submit" >Sign up as Author</button>
+      </form>
+       
     </form>
   </body>
 </html>

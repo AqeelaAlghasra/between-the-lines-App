@@ -1,16 +1,16 @@
 <a href="/">Home</a>
     <% if(user) { %>
         <% if(user.role==='Admin') { %> 
-            <a href="/orders">All Orders</a>
+            <a href="/admin/orders">All Orders</a>
             <a href="/admin/users">All Users</a>
-            <a href="/books">All Books</a>
+            <a href="/admin/books">All Books</a>
         <% } else if (user.role === 'Customer'){ %>
              <a href="/customers/<%= user._id %>/orders">My Orders</a>
              <a href="/customers/<%= user._id %>/wishList">My WishList</a>
         <% } else if (user.role === 'Author'){ %>
             <a href="/authors/<%= user._id %>/books">My Books</a>
         <% } %>
-        <a href="/customers/<%= user._id %>/orders">My Orders</a>
+        <a href="/authors/<%= user._id %>/orders">My Orders</a>
         <a href="/users/<%= user._id %>/profile"> Profile</a>
         <a href="/auth/sign-out">Sign Out</a>
     <% } else { %>

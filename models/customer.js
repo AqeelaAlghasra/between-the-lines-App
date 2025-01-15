@@ -1,14 +1,74 @@
 const mongoose = require('mongoose')
 
 
-//1. first create the Schema ( javascript object for the mongosDB)
+const User = require('./user');
+
+const orderSchema = new mongoose.Schema({
+  orderId: { 
+    type:String,
+    unique: true,
+  }
+
+})
+const wishlistSchema = new mongoose.Schema({
+  bookId: { 
+    type:String,
+    unique: true,
+  }
+
+})
 
 
 
-//2. register the schema with mongoDB as a model name , schema
+const customerSchema = new mongoose.Schema({
+    user:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        },
+      firstName:{
+        type: String,
+        required: true,
+        unique:false,
+        },
+      lastName:{
+        type: String,
+        required: true,
+        unique:false,
+        },
+      email:{
+        type: String,
+        required: true,
+        unique:false,
+        },
+      address:{
+        type: String,
+        required: true,
+        unique:false,
+        },
+      phone:{
+        type: String,
+        required: true,
+        unique:false,
+        },
+        createdAt:{
+          type: Date,
+          required: true,
+          
+          unique:false,
+          },
+        updatedAt:{
+        type: Date,
+        required: true,
+        unique:false,
+        },  
+      orders: [orderSchema],
+      wishlist: [wishlistSchema],
+      
+});
+
 
 const Customer = mongoose.model('Customer', customerSchema);
 
-//3. share the model with the rest of the application 
+
 
 module.exports = Customer;

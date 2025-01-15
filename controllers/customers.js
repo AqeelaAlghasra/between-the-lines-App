@@ -18,6 +18,11 @@ router.get('/new', async(req,res)=>{
     res.render('customers/new.ejs');
 })
 
+router.post('/new', async(req,res)=>{
+    res.render('/customers/new.ejs');
+})
+
+
 router.get('/:userId', async(req,res)=>{
     
     const customer = await User.findById(req.params.userId)

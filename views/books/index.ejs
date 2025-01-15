@@ -4,41 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Users</title>
+    <title>All Books</title>
 </head>
 
 <body>
-    <%- include('../../partials/_navbar.ejs')  %>
-    <a href="/admin/authors/<%=author._id%>/book/new">
+    <%- include('../partials/_navbar.ejs')  %>
+    <a href="/authors/677eb3a62d08fbb3d4597b4e/books/new">
         <main>
         Add new Book
       </a>
 
     <table>
-        <th>title</th>
-        <th>Role</th>
-        <th> Admin</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Category</th>
+        <th>price</th>
+        <th>Quantity</th>
+        <th>Details</th>
         <th>Edit</th>
         <th>Delete</th>
-        <% books.forEach((bk)=> { %>
+        <% books.forEach((book)=> { %>
             <tr>
                 <td>
-                    <%= bk.title %>
+                    <%= book.title %>
                 </td>
+                <td><%=book.author %></td>
+                <td><%=book.category%></td>
+                <td><%=book.price%></td>
+                <td><%=book.stockQuantity%></td>
+                <td><a href="/books/<%= book._id %>" >Details</a></td>
                 <td>
-                    
-                </td>
-                <td>
-                    
-                    
-                </td>
-                <td>
-                    <a href="/admin/books/<%= usr._id %>/edit">
+                    <a href="/books/<%= book._id %>/edit">
                         Edit
                       </a>
                 </td>
                 <td>
-                    <form action="/admin/users/<%= usr._id %>/?_method=DELETE"
+                    <form action="/books/<%= book._id %>?_method=DELETE"
                         method="POST">
                         <button type="submit">Delete</button>
                     </form>

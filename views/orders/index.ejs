@@ -1,46 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title> All Authors </title>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Orders</title>
 </head>
+
 <body>
     <%- include('../partials/_navbar.ejs')  %>
-    <a href="/authors/new">
+    <a href="/orders/new">
         <main>
-        Add new Author
+        Add new Order
       </a>
 
     <table>
-        <th>First Name</th>
-        <th>Last Name</th>
-        <th></th>
+        <th>title</th>
+        <th>Role</th>
+        <th> Admin</th>
         <th>Edit</th>
         <th>Delete</th>
-        <% authors.forEach((auth)=> { %>
+        <% orders.forEach((order)=> { %>
             <tr>
                 <td>
-                    <%= auth.username %>
+                    <%= order._id %>
                 </td>
                 <td>
-                    <%= auth.username %>
-                </td>
-                <td>
-                    <%= auth.role %>
+                    
                 </td>
                 <td>
                     
                     
                 </td>
                 <td>
-                    <a href="/authors/<%= auth._id %>/edit">
+                    <a href="admins/<%=user._Id%>/edit">
                         Edit
                       </a>
                 </td>
                 <td>
-                    <form action="/authors/<%= auth._id %>/?_method=DELETE"
+                    <form action="authors/<%=order._id%>?_method=DELETE"
                         method="POST">
                         <button type="submit">Delete</button>
                     </form>

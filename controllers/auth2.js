@@ -63,6 +63,10 @@ router.post('/sign-in', async (req, res) => {
   const role = req.body.role;
   // find a user from the username they filled out
   const user = await User.findOne({ username });
+  if(user.role==='Author')
+    res.render('/authors/new.ejs', {user: user});
+  if(role==='Customer')
+    res.render('/customers/new.ejs', {user: user});
   // if the user doesnt exist, send an error msg
   if (!user) {
     return res.send('Login failed, please try again');

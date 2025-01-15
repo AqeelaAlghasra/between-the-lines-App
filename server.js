@@ -13,6 +13,7 @@ const authController = require('./controllers/auth');
 const adminController = require('./controllers/users');
 const customerController = require('./controllers/customers');
 const authorController = require('./controllers/authors');
+const bookController = require('./controllers/books');
 const isSignedIn = require('./middleware/isSignedIn');
 
 const app = express();
@@ -81,6 +82,7 @@ app.use(isSignedIn);
 app.use('/admin', adminController);
 app.use('/customers', customerController);
 app.use('/authors', authorController);
+app.use('/books', bookController);
 // app.use('/users', usersController);
 app.get('/protected', async (req, res) => {
   if (req.session.user) {

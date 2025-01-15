@@ -4,35 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Author</title>
+    <title>Edit Author</title>
 </head>
 
 <body>
 
     <%- include('../partials/_navbar.ejs') %>
         <main>
-            <h1>Add new Author</h1>
+            <h1>Edit Author</h1>
             <div>
-                <form action="/authors/" method="POST">
+                <form action="/authors/<%= user._id %>?_method=PUT"" method="POST">
                     <div>
                         <label for="userId">User Id:</label>
-                        <input type="text" name="userId" id="userId" value="<%= author._id  %>" disabled />
+                        <input type="text" name="userId" id="userId" value="<%= user._id %>" disabled />
                     </div>
                     <div>
-                        <label for="username">username</label>
-                        <input type="text" name="username" id="username" value="<%= user.username  %>" disabled />
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" id="username" value="<%= user.username %>" disabled />
                     </div>
                     <div>
                         <label for="firstName">First Name:</label>
-                        <input type="text" name="firstName" id="firstName" />
+                        <input type="text" name="firstName" id="firstName" value="" />
                     </div>
                     <div>
                         <label for="lastName">Last Name:</label>
-                        <input type="text" name="lastName" id="lastName" />
+                        <input type="text" name="lastName" id="lastName" value=""/>
                     </div>
                     <div>
                         <label for="bio">Bio</label>
-                        <textarea name="bio" id="bio"></textarea>
+                        <textarea name="bio" id="bio"> </textarea>
                     </div>
                     <label for="nationality">Nationality:</label>
                     <select name="nationality">
@@ -230,8 +230,7 @@
                         <option value="zambian">Zambian</option>
                         <option value="zimbabwean">Zimbabwean</option>
                     </select>
-                    
-                    <button type="submit">Add User</button>
+                    <button type="submit">Update Author</button>
 
                 </form>
             </div>

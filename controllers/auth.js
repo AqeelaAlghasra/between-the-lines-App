@@ -2,6 +2,7 @@
 const express = require('express');
 const User = require('../models/user');
 const auth = require('../config/auth');
+const user = require('../models/user');
 
 const router = express.Router();
 
@@ -9,6 +10,19 @@ const router = express.Router();
 router.get('/sign-up', async (req, res) => {
   res.render('auth/sign-up.ejs');
 });
+
+router.get('/customer', async (req, res) => {
+  if(user){
+    const role= user.role;
+    if (role === "Author") res.redirect('/authors/new');
+    if (role === "Customer") res.redirect('/customers/new');
+
+  }
+  else{
+    res.redirect('/');
+  }
+});
+
 
 router.post('/sign-up', async (req, res) => {
   
@@ -37,6 +51,9 @@ router.post('/sign-up', async (req, res) => {
   const payload = { username, password: hashPassword,role: role};
 
   const newUser = await User.create(payload);
+  
+  if(role==='Auther')
+
   console.log(newUser);
   // sign person in and redirect to home page
   req.session.user = {
@@ -44,13 +61,11 @@ router.post('/sign-up', async (req, res) => {
     role: newUser.role,
     _id: newUser._id,
   };
-
   req.session.save(() => {
-    if(role==='Author')
-      res.redirect('/authors/new', {user: req.session.user});
-    if(role==='Customer')
-      res.redirect('/customers/new', {user: req.session.user});
+    res.redirect('/');
   });
+
+  
 });
 
 // Sign in
@@ -86,11 +101,13 @@ router.post('/sign-in', async (req, res) => {
   };
 
   req.session.save(() => {
+    res.redirect('/');
     if(req.session.role==='Author')
-      res.redirect('/authors/new');
+      res.redirect('/authors');
     if(req.session.role==='Customer')
-      res.redirect('/customers/new');
+      res.redirect('/customers');
   });
+
 });
 
 // Sign out
