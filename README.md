@@ -83,8 +83,8 @@ npm run dev
 ```
 
 ## Features
-- User registration and login with session management
-- Basic CRUD operations
+- User registration and login for 3 roles ['Admin','Customer','Author' ] with session management 
+- Basic for Users , books CRUD operations
 - Modular file structure
 - Example routes and controllers
 - Basic user model setup

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="/stylesheet/stylesheet.css">
+  <title>Author Dashboard </title>
+</head>
+
+<body>
+  <main class="container">
+    <%- include('../partials/_navbar.ejs') %>
+      <h1>
+        <%= user.role %> Dashboard
+      </h1>
+      
+      <body>
+        <div class="main">
+          <div class="cards">
+            <div class="card">
+              <h2>Your Books No.</h2>
+              <p>
+                <%= data.bookCount %>
+              </p>
+            </div>
+            <div class="card">
+              <h2>Sold Books</h2>
+              <p>
+                <%= data.soldBooksCount %>
+              </p>
+            </div>
+            <div class="card">
+              <h2>Sold Books</h2>
+              <p>
+                <%= data.stockQuantity %>
+              </p>
+            </div>
+            <div class="card">
+              <h2>Book of the Month</h2>
+              <p>
+                <%= data.MostSoldBook %>
+              </p>
+            </div>
+          </div>
+        </div>
+
+
+  </main>
+</body>
+
+</html>

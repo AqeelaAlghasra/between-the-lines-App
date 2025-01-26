@@ -3,12 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title>Admin Dashboard </title>
   </head>
-  <body>
-    <%- include('../partials/_navbar.ejs')  %>
+  <body>  
+    <main class="container">
+
+      <%- include('../partials/_navbar.ejs')  %>
       <h1><%= user.role %> Dashboard</h1>
-      <a href="/auth/sign-out">Sign out</a>
+        <div class="main">
+          <div class="cards">
+            <div class="card">
+              <h2>Number of Books</h2>
+              <p><%= data.bookCount %></p>
+            </div>
+            <div class="card">
+              <h2>Number of Users</h2>
+              <p><%= data.userCount %></p>
+            </div>
+            <div class="card">
+              <h2>Number of Customers</h2>
+              <p><%= data.customerCount %></p>
+            </div>
+            <div class="card">
+              <h2>Number of Authors</h2>
+              <p><%= data.authorsCount %></p>
+            </div>
+            <div class="card">
+              <h2> Total Orders</h2>
+              <p><%= data.pendingOrderCount %></p>
+            </div>
+            <div class="card">
+              <h2> pending Orders</h2>
+              <p><%= data.ordersCount %></p>
+            </div>
+            
+            </div>
+            <div class="card">
+              <h2>Book of the Month</h2>
+              <p><%= data.bookOfTheMonth %></p>
+            </div>
+            <div class="card">
+              <h2>total books Sold</h2>
+              <p><%= data.soldBooksCount %></p>
+            </div>
+            
+          </div>
+        </div>
+      </main>
+
+
       
   </body>
 </html>

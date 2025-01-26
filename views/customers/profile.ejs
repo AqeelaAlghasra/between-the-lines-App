@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
+    <title>User</title>
+</head>
+
+<body>
+    <main class="container">
+    <%- include('../partials/_navbar.ejs')  %>
+    <% console.log(customer) %>
+    <h2>Username</h2>
+    <p><%=customer.user.username %></p>
+    <h2>Role</h2>
+    <p><%=customer.user.role %></p>
+    <h2>First Name</h2>
+    <p><%=customer.firstName%></p>
+    <h2>Last Name</h2>
+    <p><%=customer.lastName%></p>    
+    <h2>Last Name</h2>
+    <p><%=customer.email%></p>
+    <h2>Last Name</h2>
+    <p><%=customer.address%></p>
+    <a class="button" href="/customers">
+            
+            Back to home 
+          </a>
+   
+</main>
+</body>
+
+</html>

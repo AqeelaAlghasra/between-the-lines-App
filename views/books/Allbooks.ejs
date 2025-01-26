@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore App</title>
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css"> <!-- Link to your CSS file -->
+    
+</head>
+<body><main class="container">
+        <%- include('../partials/_navbar.ejs')  %>
+<div >
+    
+        <h2>Featured Books</h2>
+        <% books.forEach(book => { %>
+            <div class="card">
+                <img src="<%= book.thumbnail %>" alt="<%= book.title %>">
+
+            <h3><%= book.title %></h3>
+            <p><% book.authors.forEach((author)=>{ %>
+
+                <%=author.firstName%> <%=author.lastName%>
+                <%})%>
+                    
+                   
+                </p>
+            <p>$<%= book.price %></p>
+            
+            <form action="/add-to-cart" method="post">
+                <input type="hidden" name="bookId" value="<%= book._id%>">
+                <a href="" class="button">Add to Cart</a>
+            </form>
+
+            <form action="/customers/wishlist" method="post">
+                <input type="hidden" name="bookId" value="<%= book._id %>">
+                <button type="submit" class="button">Add to wishlist </button>
+            </form>
+
+            
+            <a class="button" href="/books/<%= book._id %>/">More</a>
+        </div>
+        <%}); %>
+        
+        <div class="card">
+            <a herf=""><img src="https://images.squarespace-cdn.com/content/v1/5fc7868e04dc9f2855c99940/b156d60f-05f8-4804-94f4-cfb18b8c33e7/Laura_Barrett_Wicked_Cover.jpg" alt="Book Title 1"></a>
+            <h3>Book Title 1</h3>
+            <p>Author: Author Name</p>
+            <p>$19.99</p>
+            <form action="/add-to-cart" method="post">
+                <input type="hidden" name="bookId" value="">
+                <a href="" class="button">Add to Cart</a>
+            </form>
+        </div>
+        
+        
+        
+
+</body>
+</html>

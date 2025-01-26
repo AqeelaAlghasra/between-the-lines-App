@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title>Edit User</title>
 </head>
 
 <body>
+    <main class="container">
     <%- include('../../partials/_navbar.ejs')  %>
     <h1>Edit User</h1>
     <div>
@@ -23,8 +25,10 @@
                     <option value="Author" <%= user.role === 'Author' ? 'selected' : '' %>">Author</option>
                 </select>
                 
-                <button type="submit">Edit User</button>
+                <button class="button" type="submit">Edit User</button>
         </form>
+        </div>
+        </main>
 </body>
 
 </html>

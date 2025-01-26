@@ -4,52 +4,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title>All Books</title>
 </head>
 
 <body>
-    <%- include('../partials/_navbar.ejs')  %>
-    <a href="/authors/677eb3a62d08fbb3d4597b4e/books/new">
-        <main>
-        Add new Book
-      </a>
-
-    <table>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Category</th>
-        <th>price</th>
-        <th>Quantity</th>
-        <th>Details</th>
-        <th>Edit</th>
-        <th>Delete</th>
-        <% books.forEach((book)=> { %>
-            <tr>
-                <td>
-                    <%= book.title %>
-                </td>
-                <td><%=book.author %></td>
-                <td><%=book.category%></td>
-                <td><%=book.price%></td>
-                <td><%=book.stockQuantity%></td>
-                <td><a href="/books/<%= book._id %>" >Details</a></td>
-                <td>
-                    <a href="/books/<%= book._id %>/edit">
-                        Edit
-                      </a>
-                </td>
-                <td>
-                    <form action="/books/<%= book._id %>?_method=DELETE"
-                        method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-                </td>
-            </tr>
+    <main class="container">
+        <%- include('../partials/_navbar.ejs') %>
+            <% if(user) { %>
+                <% if(user.role==="Admin" ){ %>
+                    <a class="button" href="/admin/books/new"> Add new Book
+                    </a>
+                    <% }else{ %>
+                        <a class="button" href="/books/new"> Add new Book
+                        </a>
+                        <% } %>
+                            <% } %>
 
 
-            <% }); %>
-    </table>
-</main>
+
+                                <table>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Category</th>m
+                                    <th>price</th>
+                                    <th>Quantity</th>
+                                    <th>Details</th>
+                                    <th>Edit</th>
+                                    <th>Delete</th>
+                                    <% books.forEach((book)=> { %>
+                                        <tr>
+                                            <td>
+                                                <%= book.title %>
+                                            </td>
+
+                                            <td>
+                                            <% book.authors.forEach((author)=>{ %>
+
+                                                <%=author.firstName%>
+                                                <%=author.lastName%>
+                                            <%})%>
+                                            </td>
+                                            <td>
+                                                <%=book.category%>
+                                            </td>
+                                            <td>
+                                                <%=book.price%>
+                                            </td>
+                                            <td>
+                                                <%=book.stockQuantity%>
+                                            </td>
+                                            <% if(user) { %>
+                                                <% if(user.role==="Admin" ){ %>
+                                                    <td><a href="/admin/books/<%= book._id %>">Details</a></td>
+                                                    <td>
+                                                        <a href="/admin/books/<%= book._id %>/edit">
+                                                            Edit
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="/admin/books/<%= book._id %>?_method=DELETE"
+                                                            method="POST">
+                                                            <button type="submit">Delete</button>
+                                                            <% }else{ %>
+                                                    <td><a href="/authors/books/<%= book._id %>">Details</a></td>
+                                                    <td>
+                                                        <a href="/authors/books/<%= book._id %>/edit">
+                                                            Edit
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <form action="/authors/books/<%= book._id %>?_method=DELETE"
+                                                            method="POST">
+                                                            <button type="submit">Delete</button>
+
+
+                                                            <% } %>
+                                                                <% } %>
+                                                        </form>
+                                                    </td>
+                                        </tr>
+
+
+                                        <% }); %>
+                                </table>
+    </main>
 </body>
 
 </html>

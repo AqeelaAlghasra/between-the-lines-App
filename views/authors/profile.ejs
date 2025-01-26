@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
+    <title>User</title>
+</head>
+
+<body>
+    <main class="container">
+    <%- include('../partials/_navbar.ejs')  %>
+        <% console.log(author) %>
+        <h2>Username</h2>
+        <p><%=author.user.username %></p>
+        <h2>Role</h2>
+        <p><%=author.user.role %></p>
+        <h2>First Name</h2>
+        <p><%=author.firstName%></p>
+        <h2>Last Name</h2>
+        <p><%=author.lastName%></p>
+        <h2>Bio</h2>
+        <p><%=author.bio%></p>
+        <h2>Nationality</h2>
+        <p><%=author.Nationality%></p>
+    
+        <a class="button" href="/">
+            
+            Back to home 
+          </a>
+   
+</main>
+</body>
+
+</html>

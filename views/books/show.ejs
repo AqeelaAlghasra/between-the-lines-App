@@ -3,14 +3,99 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title> book</title>
 
 </head>
 <body>
+  <main class="container" >
     <%- include('../partials/_navbar.ejs')  %>
-<main>
-  <h1><%= book._id %></h1>
-  <h1><%= book.title %></h1>
-  
+  <br/>  
+  <br/> 
+  <div class="row">
+
+    <div class="column" >
+      <img class="image" width="450" height="550" src="<%= book.thumbnail %>" alt="<%= book.title %>"/>
+      <a class="button" href="/admin/books/new"> Add to wishlist  
+      </a>
+      <a class="button" href="/admin/books/new"> Add to Cart 
+      </a>
+    </div>
+    <div class="column">
+      <table>
+        <th> Book Details</th>
+        <th></th>
+        <tr>
+          <td>
+            Title
+          </td>
+          <td>
+            <%= book.title %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Author
+          </td>
+          <td><% book.authors.forEach((author)=>{ %>
+
+              <%=author.firstName%> <%=author.lastName%>
+              <%})%>
+               
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Description
+          </td>
+          <td>
+            <%= book.description %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Price
+          </td>
+          <td>
+            <%= book.price %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            InStock
+          </td>
+          <td>
+            <%= book.stockQuantity%>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Pages
+          </td>
+          <td>
+            <%= book.pages%>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Category
+          </td>
+          <td>
+            <%= book.category%>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Published Date
+          </td>
+          <td>
+            <%= Intl.DateTimeFormat('en-US').format(book.publishedDate)%>
+          </td>
+        </tr>
+      </table>
+    
+    </div>
+    
+  </div> 
 </main>
 </body>

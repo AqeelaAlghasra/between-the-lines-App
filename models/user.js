@@ -1,6 +1,6 @@
 const { request } = require('express');
 const mongoose = require('mongoose');
-const author = require('./author');
+// const author = require('.author/author');
 // const author = require('./author');
 // const book = require('./book');
 // const author = require('./author');
@@ -19,12 +19,7 @@ const reviewSchema = new mongoose.Schema({
 });
 
 const wishlistSchema = new mongoose.Schema({
-  books: [{
-    book: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Book',
-    }
-  }]
+  books: [ {type: mongoose.Schema.Types.ObjectId,ref: 'Book',}]
 });
 
 const orderSchema = new mongoose.Schema({
@@ -59,7 +54,8 @@ const orderSchema = new mongoose.Schema({
     unique: false,
   },
   orderItems: [{
-    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" }, quantity: {
+    book: { type: mongoose.Schema.Types.ObjectId, ref: "Book" }
+    ,quantity: {
       type: Number,
       default: 1,
     },
@@ -88,7 +84,11 @@ const bookSchema = new mongoose.Schema({
   },
   stockQuantity: {
     type: Number,
-    required: true,
+    default:0,
+    unique: false,
+  },
+  soldNo:{type: Number,
+    default:0,
     unique: false,
   },
   publishedDate: {
@@ -122,7 +122,7 @@ const bookSchema = new mongoose.Schema({
     required: true,
     unique: false,
   },
-  authors: [{ author: { type: mongoose.Schema.Types.ObjectId, ref: 'Author', } }],
+  authors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Author', } ],
   reviews: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Review' }],
 
 });
@@ -153,38 +153,39 @@ const customerSchema = new mongoose.Schema({
   },
   firstName: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   lastName: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   email: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   address: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   phone: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   createdAt: {
     type: Date,
+    default:Date.now,
     required: true,
 
     unique: false,
   },
   updatedAt: {
     type: Date,
-    required: true,
+    default:Date.now,
     unique: false,
   },
   orders: [orderSchema],
@@ -196,7 +197,7 @@ const customerSchema = new mongoose.Schema({
 
 const authorSchema = new mongoose.Schema({
   user: {
-    type: Schema.Types.ObjectId, ref: 'User'
+    type: mongoose.Schema.Types.ObjectId, ref: 'User'
   },
   firstName: {
     type: String,
@@ -210,7 +211,7 @@ const authorSchema = new mongoose.Schema({
   },
   bio: {
     type: String,
-    required: true,
+    required: false,
     unique: false,
   },
   Nationality: {
@@ -229,7 +230,9 @@ const authorSchema = new mongoose.Schema({
     required: false,//updated to true later 
     unique: false,
   },
-  books: [{ book: { type: mongoose.Schema.Types.ObjectId, ref: 'Book' }, }],
+  books: [{
+    type: mongoose.Schema.Types.ObjectId, ref: 'Book'
+  }],
 });
 
 
@@ -239,5 +242,6 @@ const Author = mongoose.model('Author', authorSchema);
 const Customer = mongoose.model('Customer', customerSchema);
 const Book = mongoose.model('Book', bookSchema);
 const Order = mongoose.model('order', orderSchema);
+
 module.exports = { User, Author, Book, Order, Customer };
 

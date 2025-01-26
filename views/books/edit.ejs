@@ -4,64 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title>Add New book</title>
 </head>
 
 <body>
+    <main class="container" >    
 
     <%- include('../partials/_navbar.ejs') %>
-        <main>
             <h1>Add new book</h1>
             <div>
-                <form action="/books" method="POST">
+                <form action="/admin/books/<%= book._id %>?_method=PUT"" method="POST">
                     <div>
                         <label for="authorId">Author Name:</label>
-                        <input type="text" name="authorId" id="authorId" value="" disabled/>
+                        <select name="authorId" id="authorId">
+                            <% authors.forEach(author=> { %>
+                                <option value="<%= author._id%>">
+                                    <%= author.firstName%>
+                                        <%=author.lastName %>
+                                </option>
+                                <%}); %>
+                        </select>
                     </div>
                     <div>
                         <label for="title">Title:</label>
-                        <input type="text" name="title" id="title" value=""/>
+                        <input type="text" name="title" id="title" value="<%= book.title %>"/>
                     </div>
                     <div>
                         <label for="description">Description</label>
-                        <textarea name="description" id="description"></textarea>
+                        <textarea name="description"  id="description"><%= book.description %> </textarea>
                     </div>
                     <div>
                         <label for="price">Price</label>
-                        <input type="text" name="price" id="price"  />
+                        <input type="text" name="price" id="price" value="<%= book.price  %>" />
                     </div>
                     <div>
                         <label for="stockQuantity">Quantity</label>
-                        <input type="text" name="stockQuantity" id="stockQuantity"  />
+                        <input type="text"   name="stockQuantity" id="stockQuantity" value="<%= book.stockQuantity %>" />
                     </div>
                     <div>
                         <label for="thumbnail">thumbnail</label>
-                        <input type="text" name="thumbnail" id="thumbnail"  />
+                        <input type="text" name="thumbnail" id="thumbnail" value="<%= book.thumbnail %>" />
                     </div>
                     <div>
                         <label for="publishedDate">Published Date</label>
-                        <input type="date" name="publishedDate" id="publishedDate"  />
+                        <input type="date" name="publishedDate" id="publishedDate" value="<%= Intl.DateTimeFormat('en-US').format(book.publishedDate)%>" />
                     </div>
                     <div>
                         <label for="pages">Pages</label>
-                        <input type="text" name="pages" id="pages"  />
+                        <input type="text" name="pages" id="pages" value="<%= book.pages%>" />
                     </div>
-                    
+                    <div>
                     <label for="category">Categories:</label>
                     <select name="category">
-                        <select id="status" name="status">
-                            <option value="Fiction" <%= book.category === 'Fiction' ? 'selected' : '' %>>Fiction</option>
-                            <option value="Non-Fiction"<%= book.category === 'Non-Fiction' ? 'selected' : '' %> >Non-Fiction</option>
-                            <option value="Children's Books" <%= book.category === 'Children's Boo' ? 'selected' : '' %>>Children's Book</option>
-                            <option value="Comics"<%= book.category === 'Comics' ? 'selected' : '' %>>Comics</option>
-                            <option value="Reference"<%= book.category === 'Reference' ? 'selected' : '' %>>Reference</option>
-                            <option value="Spiritual"<%= book.category === 'Spiritual' ? 'selected' : '' %>>Spiritual</option>
-                            <option value=" History" <%= book.category === 'History' ? 'selected' : '' %>>History</option>
-                            <option value="Business and Economics" <%= book.category === 'Business and Economics' ? 'selected' : '' %>>Business and Economics</option>
-                          </select>
+                
+                        <option value="Fiction" <%= book.category === 'Fiction' ? 'selected' : '' %>>Fiction</option>
+                        <option value="Non-Fiction"<%= book.category === 'Non-Fiction' ? 'selected' : '' %> >Non-Fiction</option>
+                        <option value="Children's Books" <%= book.category === `Children's Boo` ? 'selected' : '' %>>Children's Book</option>
+                        <option value="Comics"<%= book.category === 'Comics' ? 'selected' : '' %>>Comics</option>
+                        <option value="Reference"<%= book.category === 'Reference' ? 'selected' : '' %>>Reference</option>
+                        <option value="Spiritual"<%= book.category === 'Spiritual' ? 'selected' : '' %>>Spiritual</option>
+                        <option value=" History" <%= book.category === 'History' ? 'selected' : '' %>>History</option>
+                        <option value="Business and Economics" <%= book.category === 'Business and Economics' ? 'selected' : '' %>>Business and Economics</option>
                     </select>
+                    </div>
 
-                    <button type="submit">Add Book</button>
+                    <button class="button" type="submit">Add Book</button>
 
                 </form>
             </div>

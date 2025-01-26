@@ -4,13 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title>All Users</title>
 </head>
 
 <body>
+    <main class="container" >  
     <%- include('../../partials/_navbar.ejs')  %>
-    <a href="/admin/users/new">
-        <main>
+    <a class="button" href="/admin/users/new">
         Add new User
       </a>
 
@@ -40,7 +41,7 @@
                 <td>
                     <form action="/admin/users/<%= usr._id %>/?_method=DELETE"
                         method="POST">
-                        <button type="submit">Delete</button>
+                        <button class="button" type="submit">Delete</button>
                     </form>
                 </td>
             </tr>

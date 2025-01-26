@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheet/stylesheet.css">
     <title>Add User</title>
 </head>
 
 <body>
     <%- include('../../partials/_navbar.ejs')  %>
+    <main class="container" >    
     <h1>Add a new User</h1>
     <div>
         <form action="/admin/users" method="POST" >
@@ -26,8 +28,9 @@
                     <option value="Author">Author</option>
                 </select>
                 
-                <button type="submit">Add User</button>
+                <button class="button" type="submit">Add User</button>
         </form>
+    </main>    
 </body>
 
 </html>

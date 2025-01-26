@@ -10,11 +10,16 @@ require('./config/database');
 
 // Controllers
 const authController = require('./controllers/auth');
-const adminController = require('./controllers/users');
+const userController = require('./controllers/users');
 const customerController = require('./controllers/customers');
 const authorController = require('./controllers/authors');
 const bookController = require('./controllers/books');
+// const bookController = require('./controllers/books');
 const isSignedIn = require('./middleware/isSignedIn');
+const isAdmin = require('./middleware/isAdmin');
+const isAuthor = require('./middleware/isAuthor');
+const isCustomer = require('./middleware/isCustomer');
+const { Book } = require('./models/user');
 
 const app = express();
 // Set the port from environment variable or default to 3000
@@ -55,16 +60,25 @@ app.get('/', async (req, res) => {
   res.render('index.ejs');
 });
 
-app.get('/', (req, res) => {
+
+app.get('/listbooks',async (req,res)=> {
+
+  const allbooks = await Book.find({}).populate('authors');
+  console.log(allbooks)
+  res.render('books/Allbooks.ejs',{books: allbooks});
+
+});
+
+
+app.get('/' ,(req, res) => {
   if(req.session.user){
     console.log(req.session.user)
-    if (req.session.user.role==="Admin")
-      {console.log('admin')
-      res.redirect(`/admin/${req.session.user._id}/dashboard`)}
-    else if (req.session.user.role==="Author")
-      res.redirect(`/author/`)
-    else (req.session.user.role==="Customer")
-      res.redirect(`/customer/`)
+    if (req.session.username==="Admin")
+      res.redirect(`/admin/dashboard`)
+    else if (req.session.user.role==="author")
+      res.redirect(`/authors/${req.session.user._id}/dashboard`)
+    else (req.session.user.role==="customer")
+      res.redirect(`/customers/${req.session.user._id}/dashboard`)
 
   }
   else{
@@ -77,21 +91,23 @@ app.get('/', (req, res) => {
 
 app.use('/auth', authController);
 
+
 // Protected Routes
 app.use(isSignedIn);
-app.use('/admin', adminController);
-app.use('/customers', customerController);
-app.use('/authors', authorController);
-app.use('/books', bookController);
+
+app.use('/customers/',isSignedIn, customerController);
+
+app.use(isAuthor);
+app.use('/authors/',isSignedIn,isAuthor, authorController);
+
+
+app.use(isAdmin);
+app.use('/admin', isSignedIn, isAdmin ,userController);
+app.use('/books/', isSignedIn ,isAuthor || isAdmin ,bookController);
+
+
 // app.use('/users', usersController);
-app.get('/protected', async (req, res) => {
-  if (req.session.user) {
-    res.send(`Welcome to the party ${req.session.user.username}.`);
-  } else {
-    res.sendStatus(404);
-    res.send('Sorry, no guests allowed.');
-  }
-});
+
 
 app.listen(port, () => {
   // eslint-disable-next-line no-console
